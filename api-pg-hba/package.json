@@ -1,0 +1,48 @@
+{
+  "name": "api-pg-hba",
+  "version": "0.1.0",
+  "description": "api-pg-hba",
+  "main": "dist/src/index.js",
+  "scripts": {
+    "build": "npm run build-ts && npm run lint",
+    "serve": "node dist/src/index.js",
+    "watch-node": "nodemon dist/src/index.js",
+    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
+    "test": "jest --forceExit --verbose",
+    "watch-test": "npm run test -- --watchAll",
+    "build-ts": "tsc",
+    "watch-ts": "tsc -w",
+    "lint": "eslint \"**/*.{js,ts}\" --quiet",
+    "debug": "npm run build && npm run watch-debug",
+    "serve-debug": "nodemon --inspect dist/src/index.js",
+    "watch-debug": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve-debug\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "moment": "^2.26.0"
+  },
+  "devDependencies": {
+    "@types/concurrently": "^5.2.0",
+    "@types/dotenv": "^8.2.0",
+    "@types/eslint": "^6.8.1",
+    "@types/express": "^4.17.6",
+    "@types/handlebars": "^4.1.0",
+    "@types/jest": "^25.2.3",
+    "@types/moment": "^2.13.0",
+    "@types/mongoose": "^5.7.21",
+    "@types/node": "^14.0.5",
+    "@typescript-eslint/eslint-plugin": "^3.0.1",
+    "@typescript-eslint/parser": "^3.0.1",
+    "concurrently": "^5.2.0",
+    "eslint": "^7.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "jest": "^26.0.1",
+    "nodemon": "^2.0.4",
+    "prettier": "^2.0.5",
+    "ts-jest": "^26.0.0",
+    "typescript": "^3.9.7"
+  }
+}
