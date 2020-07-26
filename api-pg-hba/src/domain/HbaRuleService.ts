@@ -13,6 +13,11 @@ export default class HbaRuleService implements IHbaRulePort {
         this.repository = repository;
     }
 
+    async update(hbaRule: HbaRuleModel): Promise<HbaRuleModel> {
+        await this.repository.update(hbaRule);
+        return hbaRule;
+    }
+
     async delete(id: number): Promise<void> {
         return await this.repository.delete(id);
     }

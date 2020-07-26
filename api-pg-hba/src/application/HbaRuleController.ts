@@ -1,5 +1,5 @@
 import express from "express";
-import { interfaces, controller, httpGet, httpPut, httpDelete, request, response } from "inversify-express-utils";
+import { interfaces, controller, httpGet, httpPost, httpPut, httpDelete, request, response } from "inversify-express-utils";
 import { inject } from "inversify";
 import { TYPES } from "../inversify.types";
 
@@ -32,7 +32,7 @@ export class HbaRuleController implements interfaces.Controller {
         res.send(hbaRule);
     }
 
-    @httpPut("/")
+    @httpPost("/")
     public async create(@request() req: express.Request, @response() res: express.Response) {
         let createdHbaRule = await this.hbaRulePort.create(<HbaRuleModel>{
             type: req.body.type,
@@ -48,6 +48,32 @@ export class HbaRuleController implements interfaces.Controller {
         res.status(201);
         res.send({
             id: createdHbaRule.id
+        })
+    }
+
+    @httpPut("/")
+    public async update(@request() req: express.Request, @response() res: express.Response) {
+        let existingHbaRule = await this.hbaRulePort.findById(parseInt(req.body.id))
+
+        if (!existingHbaRule) {
+            res.sendStatus(404)
+            return
+        }
+
+        existingHbaRule.type = req.body.type
+        existingHbaRule.address = req.body.address
+        existingHbaRule.authMethod = req.body.authMethod
+        existingHbaRule.databases = req.body.databases
+        existingHbaRule.lineNumber = req.body.lineNumber
+        existingHbaRule.netmask = req.body.netmask
+        existingHbaRule.userNames = req.body.userNames
+        existingHbaRule.options = req.body.options
+
+        await this.hbaRulePort.update(existingHbaRule);
+
+        res.status(200);
+        res.send({
+            id: existingHbaRule.id
         })
     }
 

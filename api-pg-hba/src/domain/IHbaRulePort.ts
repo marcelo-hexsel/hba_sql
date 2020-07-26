@@ -8,6 +8,8 @@ export default interface IHbaRulePort {
 
     create(hbaRule: HbaRuleModel): Promise<HbaRuleModel>;
 
+    update(hbaRule: HbaRuleModel): Promise<HbaRuleModel>;
+
     delete(id: number): Promise<void>;
 
 
