@@ -1,7 +1,9 @@
-import HbaRuleRepository from "../domain/HbaRuleRepository";
+import { injectable } from "inversify";
+import HbaRuleRepository from "../domain/IHbaRuleRepository";
 import HbaRuleModel from "../domain/HbaRuleModel";
 import SequelizeHbaRuleModelMapping from "./SequelizeHbaRuleModelMapping";
 
+@injectable()
 export default class SequelizeHbaRuleRepository implements HbaRuleRepository {
     async delete(id: number): Promise<void> {
         await SequelizeHbaRuleModelMapping.destroy({

@@ -1,28 +1,28 @@
 import express from "express";
 import { interfaces, controller, httpGet, httpPut, httpDelete, request, response } from "inversify-express-utils";
-import { injectable, inject } from "inversify";
+import { inject } from "inversify";
+import { TYPES } from "../inversify.types";
 
 import HbaRuleModel from "../domain/HbaRuleModel";
-import HbaRuleRepository from "../domain/HbaRuleRepository";
-import SequelizeHbaRuleRepository from "../infrastructure/SequelizeHbaRuleRepository";
+import IHbaRulePort from "../domain/IHbaRulePort";
 
 @controller("/hba-rule")
 export class HbaRuleController implements interfaces.Controller {
 
-    private repository: HbaRuleRepository;
+    private hbaRulePort: IHbaRulePort;
 
-    constructor() {
-        this.repository = new SequelizeHbaRuleRepository();
+    constructor(@inject(TYPES.HbaRulePort) hbaRulePort: IHbaRulePort) {
+        this.hbaRulePort = hbaRulePort;
     }
 
     @httpGet("/")
-    public async getAll(@request() req: express.Request, @response() res: express.Response) {
-        res.send(await this.repository.findAll());
+    public async getAll(@response() res: express.Response) {
+        res.send(await this.hbaRulePort.findAll());
     }
 
     @httpGet("/:id")
     public async getById(@request() req: express.Request, @response() res: express.Response) {
-        let hbaRule = await new SequelizeHbaRuleRepository().findById(parseInt(req.params.id))
+        let hbaRule = await this.hbaRulePort.findById(parseInt(req.params.id))
 
         if (!hbaRule) {
             res.sendStatus(404)
@@ -34,7 +34,7 @@ export class HbaRuleController implements interfaces.Controller {
 
     @httpPut("/")
     public async create(@request() req: express.Request, @response() res: express.Response) {
-        let createdHbaRule = await new SequelizeHbaRuleRepository().create(<HbaRuleModel>{
+        let createdHbaRule = await this.hbaRulePort.create(<HbaRuleModel>{
             type: req.body.type,
             address: req.body.address,
             authMethod: req.body.authMethod,
@@ -53,7 +53,7 @@ export class HbaRuleController implements interfaces.Controller {
 
     @httpDelete("/:id")
     public async deleteById(@request() req: express.Request, @response() res: express.Response) {
-        await new SequelizeHbaRuleRepository().delete(parseInt(req.params.id))
+        await this.hbaRulePort.delete(parseInt(req.params.id))
 
         res.sendStatus(200);
     }
