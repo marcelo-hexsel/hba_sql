@@ -2,11 +2,42 @@ BEGIN;
 
 CREATE SCHEMA hba_sql;
 
-CREATE TABLE hba_sql.file AS
-SELECT
-    *
-FROM
-    pg_hba_file_rules;
+CREATE TABLE hba_sql.file
+(
+    id SERIAL PRIMARY KEY NOT NULL,
+    line_number bigint null,
+    type text null,
+    database text[] null,
+    user_name text[] null,
+    address text null,
+    netmask text null,
+    auth_method text null,
+    options text[] null,
+    error text null
+);
+
+INSERT INTO hba_sql.file
+(
+    line_number
+    ,type
+    ,database
+    ,user_name
+    ,address
+    ,netmask
+    ,auth_method
+    ,options
+    ,error
+)
+select  line_number
+        ,type
+        ,database
+        ,user_name
+        ,address
+        ,netmask
+        ,auth_method
+        ,options
+        ,error
+from    pg_hba_file_rules;
 
 CREATE OR REPLACE FUNCTION hba_sql.apply_hba_conf()
 RETURNS BOOLEAN
@@ -37,7 +68,6 @@ BEGIN
                 FROM    hba_sql.file
             ) TO $SQL$ || quote_literal(hba_file_path));
 
-    RAISE INFO '%', statement;
     EXECUTE statement;
 
     PERFORM pg_reload_conf();
@@ -54,8 +84,6 @@ BEGIN
     IF has_error IS TRUE THEN
         statement := format(
             $SQL$COPY (SELECT * FROM unnest(string_to_array(%L, chr(10)))) TO %L$SQL$, current_hba_content, hba_file_path);
-        RAISE INFO '%', statement;
-        EXECUTE statement;
         PERFORM pg_reload_conf();
     END IF;
 
