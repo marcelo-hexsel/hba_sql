@@ -1,6 +1,6 @@
 const TYPES = {
-    HbaRuleRepository: "HbaRuleRepository",
-    HbaRulePort: "HbaRulePort"
+    HbaRuleRepository: 'HbaRuleRepository',
+    HbaRulePort: 'HbaRulePort',
 };
 
 export { TYPES };

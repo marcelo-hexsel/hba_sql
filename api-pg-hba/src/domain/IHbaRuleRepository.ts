@@ -1,7 +1,6 @@
-import HbaRuleModel from "./HbaRuleModel";
+import HbaRuleModel from './HbaRuleModel';
 
 export default interface IHbaRuleRepository {
-
     findById(id: number): Promise<HbaRuleModel>;
 
     findAll(): Promise<HbaRuleModel[]>;
@@ -11,5 +10,4 @@ export default interface IHbaRuleRepository {
     update(hbaRule: HbaRuleModel): Promise<void>;
 
     delete(id: number): Promise<void>;
-
 }

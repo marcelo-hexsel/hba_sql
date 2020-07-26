@@ -1,12 +1,11 @@
-import { injectable, inject } from "inversify";
-import { TYPES } from "../inversify.types";
-import IHbaRulePort from "./IHbaRulePort";
-import HbaRuleModel from "./HbaRuleModel";
-import HbaRuleRepository from "./IHbaRuleRepository";
+import { injectable, inject } from 'inversify';
+import { TYPES } from '../inversify.types';
+import IHbaRulePort from './IHbaRulePort';
+import HbaRuleModel from './HbaRuleModel';
+import HbaRuleRepository from './IHbaRuleRepository';
 
 @injectable()
 export default class HbaRuleService implements IHbaRulePort {
-
     private repository: HbaRuleRepository;
 
     constructor(@inject(TYPES.HbaRuleRepository) repository: HbaRuleRepository) {
@@ -33,7 +32,4 @@ export default class HbaRuleService implements IHbaRulePort {
     async findAll(): Promise<HbaRuleModel[]> {
         return await this.repository.findAll();
     }
-
-
-
 }
