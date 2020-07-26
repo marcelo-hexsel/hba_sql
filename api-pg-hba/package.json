@@ -4,6 +4,7 @@
   "description": "api-pg-hba",
   "main": "dist/src/index.js",
   "scripts": {
+    "clean": "rm -rf dist",
     "build": "npm run build-ts && npm run lint",
     "serve": "node dist/src/index.js",
     "watch-node": "nodemon dist/src/index.js",
@@ -23,6 +24,7 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "inversify": "^5.0.1",
+    "inversify-express-utils": "^6.3.2",
     "moment": "^2.26.0",
     "pg": "^8.3.0",
     "pg-hstore": "^2.3.3",

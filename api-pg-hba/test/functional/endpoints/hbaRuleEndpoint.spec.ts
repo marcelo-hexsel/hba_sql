@@ -1,6 +1,6 @@
 import request from "supertest";
-import expressApp from "../../src/application/ExpressApp";
-import HbaRuleModel from "../../src/domain/HbaRuleModel";
+import expressApp from "../../../src/application/ExpressApp";
+import HbaRuleModel from "../../../src/domain/HbaRuleModel";
 
 describe('Endpoint: /hba-rule', () => {
 

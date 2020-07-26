@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import expressApp from "./application/ExpressApp";
 import { AddressInfo } from "net";
 

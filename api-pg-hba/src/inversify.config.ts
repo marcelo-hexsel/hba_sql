@@ -1,9 +1,10 @@
 import { Container } from "inversify";
-import "reflect-metadata";
 import { TYPES } from "./inversify.types";
 
+//controllers
+import "./application/IndexController"
+import "./application/HbaRuleController"
 
 const dependecyInjectionContainer = new Container();
-// dependecyInjectionContainer.bind<PrismaClient>(TYPES.PrismaClient).to(PrismaClient);
 
 export { dependecyInjectionContainer };

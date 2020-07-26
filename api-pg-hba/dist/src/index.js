@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+require("reflect-metadata");
 const ExpressApp_1 = __importDefault(require("./application/ExpressApp"));
 console.log("Bootstrapping hba_sql api");
 const server = ExpressApp_1.default.listen(8080, () => {
