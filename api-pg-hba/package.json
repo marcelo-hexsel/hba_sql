@@ -9,7 +9,7 @@
     "serve": "node dist/src/index.js",
     "watch-node": "nodemon dist/src/index.js",
     "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
-    "test": "jest --forceExit --verbose",
+    "test": "jest --detectOpenHandles --forceExit --verbose",
     "watch-test": "npm run test -- --watchAll",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
