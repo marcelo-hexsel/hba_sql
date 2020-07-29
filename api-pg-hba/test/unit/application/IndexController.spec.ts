@@ -9,7 +9,7 @@ describe('IndexController', () => {
         indexController = new IndexController();
     });
 
-    it('shoud return application name and version', () => {
+    it('should return application name and version', () => {
         const mockResponse = <express.Response>{};
 
         mockResponse.send = jest.fn();
